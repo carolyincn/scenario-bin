@@ -2,6 +2,7 @@
 
 
 2.6修改./waf-tools/default-compiler-flags.py中-std=c++11
+
 2.7修改./waf-tools/default-compiler-flags.py中-std=c++14
 
 
@@ -18,7 +19,7 @@ forwarder.cpp
         if(interest.getName().toUri().compare(0, (*it).size()), (*it)) == 0)
           return;
       }
-      if (tmp > 15 && tmp < 32 && m_pit.size() > 50)
+      if (tmp > 15 && tmp < 32 && m_pit.size() > 20)
         if (interest.getName().toUri().compare (0, 2, "/r") != 0)
           return;
 
