@@ -1,0 +1,107 @@
+# topo-large.txt
+
+router
+
+#name   city    latitude  longitude
+H1      NA      110       -75
+H2      NA      110       -65
+H3      NA      110       -55
+H4      NA      110       -45
+H5      NA      110       -35
+H6      NA      110       -25
+H7      NA      110       -15
+H8      NA      110       -5
+H9      NA      110       5
+H10     NA      110       15
+H11     NA      110       25
+H12     NA      110       35
+H13     NA      110       45
+H14     NA      110       55
+H15     NA      110       65
+H16     NA      110       75
+
+R1-1      NA      90        -70
+R2-1      NA      90        -50
+R3-1      NA      90        -30
+R4-1      NA      90        -10
+R5-2      NA      90        10
+R6-2      NA      90        30
+R7-2      NA      90        50
+R8-2      NA      90        70
+
+R9-1      NA      70        -60
+R10-1     NA      70        -20
+R11-2     NA      70        20
+R12-2     NA      70        60
+
+R13-1     NA      50        -40
+R14-2     NA      50        40
+
+R15-3     NA      30        0
+R16-3     NA      10        0
+
+P       NA      -10       0
+
+C1      NA      -10       -40
+C2      NA      -10       40
+C3      NA      20       20
+
+
+link
+#x      y       capacity(kbps)  OSPF    Delay   MaxPackets
+H1      R1-1      10Mbps      1       10ms    100
+H2      R1-1      10Mbps      1       10ms    100
+H3      R2-1      10Mbps      1       10ms    100
+H4      R2-1      10Mbps      1       10ms    100
+H5      R3-1      10Mbps      1       10ms    100
+H6      R3-1      10Mbps      1       10ms    100
+H7      R4-1      10Mbps      1       10ms    100
+H8      R4-1      10Mbps      1       10ms    100
+H9      R5-2      10Mbps      1       10ms    100
+H10     R5-2      10Mbps      1       10ms    100
+H11     R6-2      10Mbps      1       10ms    100
+H12     R6-2      10Mbps      1       10ms    100
+H13     R7-2      10Mbps      1       10ms    100
+H14     R7-2      10Mbps      1       10ms    100
+H15     R8-2      10Mbps      1       10ms    100
+H16     R8-2      10Mbps      1       10ms    100
+
+R1-1      R9-1      10Mbps      1       10ms    100
+R2-1      R9-1      10Mbps      1       10ms    100
+R3-1      R10-1     10Mbps      1       10ms    100
+R4-1      R10-1     10Mbps      1       10ms    100
+R5-2      R11-2     10Mbps      1       10ms    100
+R6-2      R11-2     10Mbps      1       10ms    100
+R7-2      R12-2     10Mbps      1       10ms    100
+R8-2      R12-2     10Mbps      1       10ms    100
+
+R9-1      R13-1     10Mbps      1       10ms    100
+R10-1     R13-1     10Mbps      1       10ms    100
+R11-2     R14-2     10Mbps      1       10ms    100
+R12-2     R14-2     10Mbps      1       10ms    100
+
+R13-1     R15-3     10Mbps      1       10ms    100
+R14-2     R15-3     10Mbps      1       10ms    100
+
+R15-3     R16-3     10Mbps      1       10ms    100
+
+R16-3     P       10Mbps      1       10ms    100
+
+#C1      R1      10Mbps      1       10ms    100
+#C1      R2      10Mbps      1       10ms    100
+#C1      R3      10Mbps      1       10ms    100
+#C1      R4      10Mbps      1       10ms    100
+#C1      R9      10Mbps      1       10ms    100
+#C1      R10      10Mbps      1       10ms    100
+#C1      R13      10Mbps      1       10ms    100
+
+#C2      R5      10Mbps      1       10ms    100
+#C2      R6     10Mbps      1       10ms    100
+#C2      R7     10Mbps      1       10ms    100
+#C2      R8     10Mbps      1       10ms    100
+#C2      R11     10Mbps      1       10ms    100
+#C2      R12     10Mbps      1       10ms    100
+#C2      R14     10Mbps      1       10ms    100
+
+#C3      R15     10Mbps      1       10ms    100
+#C3      R16     10Mbps      1       10ms    100
