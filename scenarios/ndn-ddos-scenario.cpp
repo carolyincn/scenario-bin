@@ -154,26 +154,23 @@ main(int argc, char* argv[])
 
   ndn::AppHelper evilAppHelper("ns3::ndn::ConsumerCbr"); // 
   evilAppHelper.SetAttribute("Frequency", StringValue("200"));
+  evilAppHelper.SetAttribute("Randomize", StringValue("uniform"));
   for (NodeContainer::Iterator node = evilNodes.Begin (); node != evilNodes.End (); node++){
     ApplicationContainer evilApp;
     evilAppHelper.SetPrefix ("/p/evil");
     evilApp.Add (evilAppHelper.Install (*node));
-    evilApp.Start (Seconds (10.0));
-    evilApp.Stop (Seconds (20.0));
+    evilApp.Start (Seconds (30.0));
+    evilApp.Stop (Seconds (150.0));
   }
 
   ndn::AppHelper goodAppHelper("ns3::ndn::ConsumerZipfMandelbrot"); // ConsumerZipfMandelbrot
-  goodAppHelper.SetAttribute("Frequency", StringValue("50"));
+  // evilAppHelper.SetAttribute("Randomize", StringValue("uniform"));
+  goodAppHelper.SetAttribute("Frequency", StringValue("10"));
   for (NodeContainer::Iterator node = goodNodes.Begin (); node != goodNodes.End (); node++){
     ApplicationContainer goodApp;
     goodAppHelper.SetPrefix ("/p/good");
     goodApp.Add (goodAppHelper.Install (*node));
   }
-  // for (NodeContainer::Iterator node = goodNodes.Begin (); node != goodNodes.End (); node++){
-  //   ApplicationContainer goodApp2;
-  //   goodAppHelper.SetPrefix ("/p/good/"+Names::FindName (*node));
-  //   goodApp2.Add (goodAppHelper.Install (*node));
-  // }
 
   ndn::AppHelper producerApp("ns3::ndn::Producer");
   // Producer will reply to all requests starting with /prefix
@@ -181,14 +178,8 @@ main(int argc, char* argv[])
   producerApp.SetAttribute("PayloadSize", StringValue("1024"));
   producerApp.Install(producers.Get(0)); // last node
 
-  // ndn::AppHelper producerApp2("ns3::ndn::Producer");
-  // // Producer will reply to all requests starting with /prefix
-  // producerApp2.SetPrefix("/p/good");
-  // producerApp2.SetAttribute("PayloadSize", StringValue("1024"));
-  // producerApp2.Install(producers.Get(1)); // last node
-
-
   ndn::AppHelper routerHelper("RouterProducer");
+  routerHelper.SetAttribute("PayloadSize", StringValue("1"));
   for(int i = 0; i < rnum; i ++){
     ApplicationContainer routerApp;
     routerHelper.SetPrefix ("/r" + to_string(i + 1));
@@ -206,7 +197,7 @@ main(int argc, char* argv[])
   }
 
 
-  Simulator::Stop(Seconds(20.0));
+  Simulator::Stop(Seconds(180.0));
   ndn::L3RateTracer::InstallAll("rate-trace.txt", Seconds(1.0));
   // ndn::CsTracer::InstallAll("cs-trace.txt", Seconds(1));
 

@@ -27,8 +27,8 @@ root1 = subset(data.combined, Type=="OutInterests")
 root2 = subset(data.combined, Type=="InData")
 
 df = data.frame(Time = root1$Time, Node = root1$Node, Rate = root2$PacketRaw.sum / root1$PacketRaw.sum)
-df.test = subset(df, Node %in% c("H1", "H3", "H5", "H7", "H9", "H11", "H13", "H15", "H16"))
-# df.test = subset(df, grepl("^good-H", Node))
+# df.test = subset(df, Node %in% c("H1", "H3", "H5", "H7", "H9", "H11", "H13", "H15", "H16"))
+df.test = subset(df, grepl("^good-H", Node))
 df.avg = summaryBy(. ~ Time, data=df.test, FUN=mean)
 write.table(df.avg$Rate.mean, "rate.txt", row.names = FALSE, col.names = FALSE)
 # graph rates on all nodes in PacketRaw

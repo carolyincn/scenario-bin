@@ -84,10 +84,6 @@ RouterProducer::OnInterest(std::shared_ptr<const ndn::Interest> interest)
   data->setName(dataName);
   data->setFreshnessPeriod(::ndn::time::milliseconds(m_freshness.GetMilliSeconds()));
 
-  // // auto buffer = make_shared< ::ndn::Buffer>(10);
-  // // const int payload[2] = {0, 1};
-  // // memcpy(buffer->get(), &payload, 2*sizeof(int));
-  // data->setContent(buffer);
   int type = getPrefixType(intname);
   Ptr<L3Protocol> L3protocol = GetNode()->GetObject<L3Protocol>();
   shared_ptr<nfd::Forwarder> forwarder = L3protocol->getForwarder();
@@ -129,29 +125,10 @@ RouterProducer::OnInterest(std::shared_ptr<const ndn::Interest> interest)
 
   } else if (type == 2){ // return other message, like confirmation or FIT messages // TODO
     char buf[_PIPESIZE_];
-    // if(read(fd, buf, _PIPESIZE_) < 0){
-    //   printf("Read Error %d\n", errno);
-    //   data->setContent(make_shared< ::ndn::Buffer>(m_virtualPayloadSize));
-    // } else{
-    //   std::cout << "router " << buf << std::endl;
-    //   uint8_t buffer[_PIPESIZE_];
-    //   memcpy(buffer, &buf, _PIPESIZE_);
-    //   data->setContent(reinterpret_cast<const uint8_t*>(buffer), _PIPESIZE_);
-    // }
     string buff;
     while(read(fd, buf, _PIPESIZE_) >= 0){
-      // std::cout << "router " << buf << std::endl;
       buff = buff + buf + ' ';
-      // std::cout << "buff " << buff << std::endl;
-
-      // uint8_t buffer[_PIPESIZE_];
-
-      // memcpy(buffer, &buf, _PIPESIZE_);
-      // printf("Read Error %d\n", errno);
-      // data->setContent(make_shared< ::ndn::Buffer>(m_virtualPayloadSize));
     }
-    // buff.erase(buff.end() - 1); // eliminate the last blank
-
     // ba buff chuliyixia,zaifachuqu 
     buff = packNackInfo(buff);
 
@@ -181,12 +158,9 @@ RouterProducer::OnInterest(std::shared_ptr<const ndn::Interest> interest)
       evilprefix += intname[i];
 
     }
-    data->setContent(make_shared< ::ndn::Buffer>(m_virtualPayloadSize));
-    // int nid = GetNode()->GetId();
-    // vs[nid - 8].push_back(evilprefix);
-    std::cout << "evilvec size before: " << forwarder->getEvilvec().size() << std::endl;
 
-    // forwarder->setEvilvec(evilprefix);
+    std::cout << "evilvec size before: " << forwarder->getEvilvec().size() << std::endl;
+    forwarder->setEvilvec(evilprefix);
     std::cout << "evilvec size after: " << forwarder->getEvilvec().size() << std::endl;
     std::cout << evilprefix << std::endl;
 
